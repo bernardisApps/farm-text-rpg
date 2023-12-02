@@ -8,4 +8,6 @@ def main():
     view('')
     view('Si tienes un usuario ingresa <login> <nombre> <password> pero sin las <>.')
     view('Sino ingresa <registro> también sin las <>')
-    input_view()
+    comando = input_view('#> ')
+    if comando.split()[0] == 'registro':
+        creating_user()
