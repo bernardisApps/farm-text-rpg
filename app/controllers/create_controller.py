@@ -1,5 +1,5 @@
 from app.models.db.actions import create_user,get_name
-from app.views.console_view import view,input_view,input_pass
+from app.views.console_view import view,input_view,input_pass,limpiar
 import json
 import time
 
@@ -48,4 +48,5 @@ def creating_user():
             if se_creo:
                 view('Personaje creado correctamente.')
                 input_view('Presione una tecla para continuar...')
+                limpiar()
             

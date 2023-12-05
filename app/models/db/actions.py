@@ -16,7 +16,7 @@ def get_name(name):
 def get_user(name,password):
     try:
         session = create_session()
-        user = session.query(Player).filter_by(nombre = name, password = password)
+        user = session.query(Player).filter_by(nombre = name, password = password).first()
         session.close()
         return user
     except:
