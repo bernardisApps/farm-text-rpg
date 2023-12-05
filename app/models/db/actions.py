@@ -1,7 +1,17 @@
 from app.models.db.connection import create_session
 from app.models.db.schemas import Player
 
-
+def get_name(name):
+    try:
+        session = create_session()
+        usuario = session.query(Player).filter_by(nombre=name).first()
+        session.close()
+        if usuario.nombre == name:
+            return False
+        else:
+            return True
+    except:
+        return True
 
 def get_user(name,password):
     try:

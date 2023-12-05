@@ -1,6 +1,7 @@
-from app.models.db.actions import create_user
-from app.views.console_view import view,input_view
-from app.modules.colorear import color
+from app.models.db.actions import create_user,get_name
+from app.views.console_view import view,input_view,input_pass
+import json
+import time
 
 def creating_user():
     msj = 'Bienvenido nuevo usuario. Vamos a crear tu personaje.'
@@ -10,19 +11,41 @@ def creating_user():
     view(msj2)
     view(msj3)
     nombre = ''
-    while nombre == '' or len(nombre) > 10:
-        nombre = input_view('#> ')
+    correcto = False
+    while not correcto:
+        nombre = input_view('#> ').lower()
         if nombre == '' or len(nombre) > 10:
             view('El nombre no es válido, intenta nuevamente.')
             input_view('Presione una tecla para continuar...')
         else:
-            view('Muy bien!')
-            view()
+            esta_disponible = get_name(nombre)
+            if esta_disponible:
+                view('Muy bien! el nombre está disponible.')
+                correcto = True
+            else:
+                view('El nombre ya está en uso, por favor elije otro nombre: ')
+                
     password = ''
     msj4 = 'Ahora debes elegir un password.'
     view(msj4)
     while password == '':
-        password = input_view('#> ')
+        password = input_pass('#> ').lower()
         if password != "":
             view('Excelente!.')
-            input_view('Presione una tecla para continuar...')
+            view('Creando personaje...')
+            time.sleep(1)
+            se_creo = create_user(nombre,
+                        password,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        100,
+                        json.dumps([]),
+                        10,
+                        'habitacion')
+            if se_creo:
+                view('Personaje creado correctamente.')
+                input_view('Presione una tecla para continuar...')
+            
