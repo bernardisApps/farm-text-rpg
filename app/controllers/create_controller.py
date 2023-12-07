@@ -1,4 +1,4 @@
-from app.models.db.actions import create_user,get_name
+from app.models.db.actions import create_user,get_by_name
 from app.views.console_view import view,input_view,input_pass,limpiar
 import json
 import time
@@ -18,7 +18,7 @@ def creating_user():
             view('El nombre no es válido, intenta nuevamente.')
             input_view('Presione una tecla para continuar...')
         else:
-            esta_disponible = get_name(nombre)
+            esta_disponible = get_by_name(nombre) == None
             if esta_disponible:
                 view('Muy bien! el nombre está disponible.')
                 correcto = True

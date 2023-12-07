@@ -28,13 +28,7 @@ def main():
             if len(comandos) == 3:
                 nombre = comandos[1]
                 password = comandos[2]
-                player = login(nombre,password)
-                if not player:
-                    view('Usuario no existe.')
-                    input_view('Presione una tecla para continuar...')
-                else:
-                    view(f'Bienvenido {player.nombre}')
-                    input_view()
+                login(nombre,password)
             else:
                 view('Comando inválido. Intente nuevamente.')
                 input_view('Presione una tecla para continuar...')
