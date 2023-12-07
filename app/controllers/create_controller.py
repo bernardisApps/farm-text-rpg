@@ -2,37 +2,32 @@ from app.models.db.actions import create_user,get_by_name
 from app.views.console_view import view,input_view,input_pass,limpiar
 import json
 import time
+from app.modules.textos import *
 
 def creating_user():
-    msj = 'Bienvenido nuevo usuario. Vamos a crear tu personaje.'
-    msj2 = 'Primero necesitamos que elijas un nombre.'
-    msj3 = 'El mismo debe ser menor a 10 carácteres y no debe ser nulo.'
-    view(msj)
-    view(msj2)
-    view(msj3)
+    view(WELCOME_NEW_USER)
     nombre = ''
     correcto = False
     while not correcto:
         nombre = input_view('#> ').lower()
         if nombre == '' or len(nombre) > 10:
-            view('El nombre no es válido, intenta nuevamente.')
-            input_view('Presione una tecla para continuar...')
+            view(INVALID_NAME)
+            input_view(PRESS_ENTER)
         else:
             esta_disponible = get_by_name(nombre) == None
             if esta_disponible:
-                view('Muy bien! el nombre está disponible.')
+                view(CORRECT_NAME)
                 correcto = True
             else:
-                view('El nombre ya está en uso, por favor elije otro nombre: ')
+                view(USED_NAME)
                 
     password = ''
-    msj4 = 'Ahora debes elegir un password.'
-    view(msj4)
+    view(PASSWORD_CHOOSE)
     while password == '':
         password = input_pass('#> ').lower()
         if password != "":
-            view('Excelente!.')
-            view('Creando personaje...')
+            view(VERY_GOOD)
+            view(CREATING_CHARACTER)
             time.sleep(1)
             se_creo = create_user(nombre,
                         password,
@@ -46,7 +41,7 @@ def creating_user():
                         10,
                         'habitacion')
             if se_creo:
-                view('Personaje creado correctamente.')
-                input_view('Presione una tecla para continuar...')
+                view(CREATED_CHARACTER)
+                input_view(PRESS_ENTER)
                 limpiar()
             
